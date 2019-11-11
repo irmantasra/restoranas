@@ -10,47 +10,52 @@ import PeopleIcon from "@material-ui/icons/People";
 import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
 import LocalShippingIcon from "@material-ui/icons/LocalShipping";
 
-export default function MenuItems() {
+export default function MenuItems({ location }) {
     const classes = useStyles();
     const items = [
-      {
-        link: "/dashboard/foodmenu",
-        label: "Patiekalai",
-        icon: <RestaurantMenuIcon />
-      },
-      {
-        link: "/dashboard/orders",
-        label: "Užsakymai",
-        icon: <ShoppingCartIcon />
-      },
-      {
-        link: "/dashboard/staff",
-        label: "Personalas",
-        icon: <SupervisedUserCircleIcon />
-      },
-      {
-        link: "/dashboard/clients",
-        label: "Klientai",
-        icon: <PeopleIcon />
-      },
-      {
-        link: "/dashboard/suppliers",
-        label: "Tiekėjai",
-        icon: <LocalShippingIcon />
-      }
+        {
+            link: "/dashboard/foodmenu",
+            label: "Patiekalai",
+            icon: <RestaurantMenuIcon />
+        },
+        {
+            link: "/dashboard/orders",
+            label: "Užsakymai",
+            icon: <ShoppingCartIcon />
+        },
+        {
+            link: "/dashboard/staff",
+            label: "Personalas",
+            icon: <SupervisedUserCircleIcon />
+        },
+        {
+            link: "/dashboard/clients",
+            label: "Klientai",
+            icon: <PeopleIcon />
+        },
+        {
+            link: "/dashboard/suppliers",
+            label: "Tiekėjai",
+            icon: <LocalShippingIcon />
+        }
     ];
     return (
         <div>
-          {items.map((item, i) => (
-            <NavLink to={item.link} className={classes.link} activeClassName={classes.active} key={i}>
-                <ListItem button>
-                    <ListItemIcon>
-                        {item.icon}
-                    </ListItemIcon>
-                    <ListItemText primary={item.label} />
-                </ListItem>
-            </NavLink>
-          ))}
+            {items.map((item, i) => (
+                <NavLink to={item.link} className={classes.link} key={i}>
+                    <ListItem
+                        button
+                        className={
+                            location.pathname.includes(item.link)
+                                ? classes.active
+                                : null
+                        }
+                    >
+                        <ListItemIcon>{item.icon}</ListItemIcon>
+                        <ListItemText primary={item.label} />
+                    </ListItem>
+                </NavLink>
+            ))}
         </div>
     );
 }
@@ -58,9 +63,9 @@ export default function MenuItems() {
 const useStyles = makeStyles(theme => ({
     link: {
         textDecoration: "none",
-        color: 'rgb(0, 0, 0, 0.85)'
+        color: "rgb(0, 0, 0, 0.85)"
     },
     active: {
-      backgroundColor: 'rgb(0, 0, 0, 0.45)'
+        backgroundColor: "rgb(0,0,0,0.15)"
     }
 }));

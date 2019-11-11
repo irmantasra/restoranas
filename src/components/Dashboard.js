@@ -10,24 +10,19 @@ import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItems from "./MenuItems";
-import Chart from "./Chart";
-import Deposits from "./Deposits";
 import Orders from "./Orders";
 import FoodMenu from "./FoodMenu";
 import Staff from "./Staff";
 import Clients from "./Clients";
 import Suppliers from "./Suppliers";
 
-export default function Dashboard({ history }) {
+export default function Dashboard({ history, location }) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const openUserMenu = Boolean(anchorEl);
@@ -51,8 +46,6 @@ export default function Dashboard({ history }) {
         handleUserMenuClose();
         history.push('/')
     }
-
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     return (
         <div className={classes.root}>
@@ -132,17 +125,19 @@ export default function Dashboard({ history }) {
                     </IconButton>
                 </div>
                 <Divider />
-                <List><MenuItems/></List>
+                <List>
+                    <MenuItems location={location}/>
+                </List>
                 <Divider />
             </Drawer>
-            <div>
+            <main className={classes.content}>
+                <div className={classes.appBarSpacer} />
                 <Route path="/dashboard/foodmenu" component={FoodMenu}/>
                 <Route path="/dashboard/orders" component={Orders}/>
                 <Route path="/dashboard/staff" component={Staff}/>
                 <Route path="/dashboard/clients" component={Clients}/>
                 <Route path="/dashboard/suppliers" component={Suppliers}/>
-
-            </div>
+            </main>
         </div>
     );
 }
